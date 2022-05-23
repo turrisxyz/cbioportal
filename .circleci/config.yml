@@ -21,7 +21,11 @@ jobs:
                 name: Build and unzip war
                 command: |
                     mvn -DskipTests clean install && \
-                    unzip portal/target/cbioportal*.war -d portal/target/war-exploded
+                    mkdir portal/target/war-exploded && \
+                    mv portal/target/cbioportal*.war portal/target/war-exploded/ && \
+                    cd portal/target/war-exploded/ && \
+                    jar -xvf cbioportal*.war && \
+                    cd ../../..
             - save_cache:
                 paths:
                   - ~/.m2
